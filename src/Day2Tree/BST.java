@@ -7,15 +7,16 @@ public class BST {
     public void insert(int data){
         root = insertData(root, data);
     }
-    public Node insertData(Node root, int data){
-        if(root == null){
-            root = new Node(data);
-        } else if (data< root.data) {
-            root.left = insertData(root.left ,data);
-        } else if (data> root.data) {
-            root.right = insertData(root.right ,data);
+
+    public Node insertData(Node node, int data){
+        if(node == null){
+            node = new Node(data);
+        } else if (data< node.data) {
+            node.left = insertData(node.left ,data);
+        } else if (data> node.data) {
+            node.right = insertData(node.right ,data);
         }
-        return root;
+        return node;
     }
     public void inorderTraversal (Node node){
         if(node != null){
@@ -23,6 +24,15 @@ public class BST {
             System.out.print(node.data + " -->");
             inorderTraversal(node.right);
         }
+    }
+    public Node searchBST(Node root, int val) {
+        if(root == null) return null;
+        else if(root.data > val){
+            root = searchBST(root.left, val);
+        }else if(root.data < val){
+            root = searchBST(root.right, val);
+        }
+        return root;
     }
 
     public static void main(String[] args) {
@@ -38,5 +48,6 @@ public class BST {
         bst.insert(46);
         bst.insert(25);
         bst.inorderTraversal(bst.root);
+        bst.searchBST(bst.root,5);
     }
 }
