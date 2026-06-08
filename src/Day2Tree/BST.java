@@ -7,7 +7,7 @@ public class BST {
     public void insert(int data){
         root = insertData(root, data);
     }
-
+    public void delete(int data) {root = deleteNode(root, data);}
     public Node insertData(Node node, int data){
         if(node == null){
             node = new Node(data);
@@ -34,6 +34,52 @@ public class BST {
         }
         return root;
     }
+    public Node deleteNode(Node root, int key) {
+
+        if (root == null)
+            return root;
+
+        if (key < root.data) {
+            root.left = deleteNode(root.left, key);
+        }
+        else if (key > root.data) {
+            root.right = deleteNode(root.right, key);
+        }
+        else {
+            // Node found
+
+            // Case 1: No right child
+            if (root.right == null)
+                return root.left;
+
+                // Case 2: No left child
+            else if (root.left == null)
+                return root.right;
+
+                // Case 3: Two children
+            else {
+                root.data = findSuccessor(root.right);
+                root.right = deleteNode(root.right, root.data);
+            }
+        }
+
+        return root;
+    }
+//    public int findSuccessor(Node root) {
+//        while (root.left != null) {
+//            root = root.left;
+//        }
+//        return root.data;
+//    }
+public int findSuccessor(Node root){
+    int successor = -1;
+    Node temp = root;
+    while (temp != null){
+        successor = temp.data;
+        temp = temp.left;
+    }
+    return successor;
+}
 
     public static void main(String[] args) {
         BST bst = new BST();
@@ -48,6 +94,8 @@ public class BST {
         bst.insert(46);
         bst.insert(25);
         bst.inorderTraversal(bst.root);
-        bst.searchBST(bst.root,5);
+        System.out.println(" ");
+        bst.delete(32);
+        bst.inorderTraversal(bst.root);
     }
 }
