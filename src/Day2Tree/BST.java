@@ -1,5 +1,10 @@
 package Day2Tree;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class BST {
     Node root;
     BST() {this.root = null;}
@@ -17,6 +22,24 @@ public class BST {
             node.right = insertData(node.right ,data);
         }
         return node;
+    }
+    public void levelOrderTraversal(Node node){
+        if(node == null) return;
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(node);
+        List<Integer> list = new ArrayList<>();
+        while(!queue.isEmpty()){
+            Node temp = queue.poll();
+            System.out.print(temp.data + " --> ");
+            list.add(temp.data);
+            if (temp.left != null) queue.add(temp.left);
+            if (temp.right != null) queue.add(temp.right);
+        }
+        System.out.println(" List ");
+        for (int i = 0; i < list.size(); i++) {
+
+            System.out.print(list.get(i)+" --> ");
+        }
     }
     public void inorderTraversal (Node node){
         if(node != null){
@@ -97,5 +120,6 @@ public int findSuccessor(Node root){
         System.out.println(" ");
         bst.delete(32);
         bst.inorderTraversal(bst.root);
+        bst.levelOrderTraversal(bst.root);
     }
 }
