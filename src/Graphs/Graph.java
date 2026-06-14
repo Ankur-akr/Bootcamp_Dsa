@@ -1,6 +1,8 @@
 package Graphs;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Graph {
     int V;                       //no. of vertices
@@ -24,6 +26,26 @@ public class Graph {
             }
         }
     }
+    public void bfs(int start){
+        boolean[] vis = new boolean[V];
+        Arrays.fill(vis,false);
+        bfsUtil(start,vis);
+    }
+    public void bfsUtil(int start , boolean[] vis){
+        Queue<Integer> q = new LinkedList<>();
+        vis[start] = true;
+        q.offer(start);
+        while (!q.isEmpty()){
+            start = q.poll();
+            System.out.print(start+ " ");
+            for (int v = 0; v < V; v++) {
+                if(graph[start][v]==1 && !vis[v]){
+                    vis[v] =true;
+                    q.offer(v);
+                }
+            }
+        }
+    }
 
     public static void main(String[] args) {
         Graph g = new Graph(5);
@@ -36,5 +58,6 @@ public class Graph {
         };
         g.dfs(0);
         System.out.println();
+        g.bfs(0);
     }
 }
