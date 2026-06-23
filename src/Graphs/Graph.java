@@ -35,8 +35,8 @@ public class Graph {
         Queue<Integer> q = new LinkedList<>();
         vis[start] = true;
         q.offer(start);
-        while (!q.isEmpty()){
-            start = q.poll();
+        while (!q.isEmpty()){                             //Loop start hone se pehle source element(start) ko
+            start = q.poll();                             //visit kar lena warna bfs m duplicate element honge
             System.out.print(start+ " ");
             for (int v = 0; v < V; v++) {
                 if(graph[start][v]==1 && !vis[v]){
@@ -56,8 +56,11 @@ public class Graph {
                 {0,1,0,0,1},
                 {0,0,1,1,0},
         };
+        System.out.print("DFS OF GRAPH : ");
         g.dfs(0);
         System.out.println();
+        System.out.println();
+        System.out.print("BFS OF GRAPH : ");
         g.bfs(0);
     }
 }
